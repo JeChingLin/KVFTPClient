@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B409208B-14F0-44A4-9A86-9152350C4068</string>
+	<key>IDESourceControlProjectName</key>
+	<string>KVFTPClientDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9B103B1BAFB5F0819CE149913FA20C0D2C24416E</key>
+		<string>https://github.com/JeChingLin/KVFTPClient.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>KVFTPClientDemo/KVFTPClientDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9B103B1BAFB5F0819CE149913FA20C0D2C24416E</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/JeChingLin/KVFTPClient.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9B103B1BAFB5F0819CE149913FA20C0D2C24416E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9B103B1BAFB5F0819CE149913FA20C0D2C24416E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KVFTPClient</string>
+		</dict>
+	</array>
+</dict>
+</plist>
