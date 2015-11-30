@@ -1,15 +1,10 @@
-//
-//  FTPClient.h
-//  WPDforTab
+
+//  KVFTPClient.h
 //
 //  Created by Kevin Lin on 12/7/17.
-//  Copyright (c) 2012年 GIgastone Co., Ltd. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-#define USERNAME  @"root"
-#define PASSWORD  @"root"
 
 enum {
     kSendBufferSizeOfFTPClient = 32768
@@ -90,6 +85,7 @@ typedef void(^FTPFilesUploaderFailedBlock)();
 @property (copy, nonatomic) FTPFilesUploaderCompletedBlock uploadCompletedBlock;
 @property (copy, nonatomic) FTPFilesUploaderFailedBlock uploadFailedBlock;
 -(void)uploadFile:(NSString *)localPath uploadTo:(NSString *)ftpPath progressBlock:(FTPFileUploaderProgressBlock) progressBlock completedBlock:(FTPFilesUploaderCompletedBlock)completedBlock failedBlock:(FTPFilesUploaderFailedBlock)failedBlock;
+-(void)uploadData:(NSData*) localData uploadTo:(NSString*)ftpPath withFileName:(NSString*)fileName progressBlock:(FTPFileUploaderProgressBlock) progressBlock completedBlock:(FTPFilesUploaderCompletedBlock)completedBlock failedBlock:(FTPFilesUploaderFailedBlock)failedBlock;
 
 @end
 

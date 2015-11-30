@@ -1,10 +1,7 @@
-//
+
 //  FTPClient.m
-//  WPDforTab
 //
 //  Created by Kevin Lin on 12/7/17.
-//  Copyright (c) 2012年 GIgastone Co., Ltd. All rights reserved.
-//
 
 #import "KVFTPClient.h"
 
@@ -351,12 +348,89 @@
     } 
 }
 
+-(void)uploadData:(NSData *)localData uploadTo:(NSString*)ftpPath withFileName:(NSString*)fileName
+{
+    [self _stopUploadWithStatus:nil];
+    BOOL                    success;
+    NSURL                *url;
+    CFWriteStreamRef        ftpStream;
+    
+    assert(self.u_networkStream == nil);      // don't tap send twice in a row!
+    assert(self.u_fileStream == nil);         // ditto
+    // First get and check the URL.
+    
+    url = [self smartURLForString:[[NSString stringWithFormat:@"ftp://%@:%@@%@%@", self.UserName,self.Password,self.FTPAddresIP, ftpPath]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    success = (url != nil);
+    if (success) {
+        // Add the last part of the file name to the end of the URL to form the final
+        // URL that we're going to put to.
+        url = CFBridgingRelease(
+                                CFURLCreateCopyAppendingPathComponent(NULL, (__bridge CFURLRef) url, (__bridge CFStringRef) fileName, false)
+                                );
+        success = (url != nil);
+    }
+    // If the URL is bogus, let the user know.  Otherwise kick off the connection.
+    if ( ! success) {
+        NSLog(@"Invalid URL");
+    } else {
+        // Open a stream for the file we're going to send.  We do not open this stream;
+        // NSURLConnection will do it for us.
+        
+        self.u_fileStream = [NSInputStream inputStreamWithData:localData];
+        assert(self.u_fileStream != nil);
+        
+        [self.u_fileStream open];
+        // Open a CFFTPStream for the URL.
+        CFURLRef cfURL = (__bridge CFURLRef)url;
+        
+        ftpStream = CFWriteStreamCreateWithFTPURL(NULL, cfURL);
+        assert(ftpStream != NULL);
+        
+        self.u_networkStream = (__bridge NSOutputStream *) ftpStream;
+        
+#pragma unused (success) //Adding this to appease the static analyzer.
+        success = [self.u_networkStream setProperty:self.UserName forKey:(id)kCFStreamPropertyFTPUserName];
+        assert(success);
+        success = [self.u_networkStream setProperty:self.Password forKey:(id)kCFStreamPropertyFTPPassword];
+        assert(success);
+        success = [self.u_networkStream setProperty:(__bridge id) kCFBooleanFalse
+                                             forKey:(__bridge NSString *) kCFStreamPropertyFTPAttemptPersistentConnection
+                   ];
+        assert(success);
+        
+        self.u_networkStream.delegate = self;
+        [self.u_networkStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [self.u_networkStream open];
+        
+        // Have to release ftpStream to balance out the create.  self.networkStream
+        // has retained this for our persistent use.
+        //        CFRelease(cfURL);
+        CFRelease(ftpStream);
+        
+        // Tell the UI we're sending.
+        if ([delegate respondsToSelector:@selector(KVFTPDidStartUpload:)]) {
+            [delegate KVFTPDidStartUpload:self];
+        }
+    }
+}
+
 -(void)uploadFile:(NSString *)localPath uploadTo:(NSString *)ftpPath progressBlock:(FTPFileUploaderProgressBlock) progressBlock completedBlock:(FTPFilesUploaderCompletedBlock)completedBlock failedBlock:(FTPFilesUploaderFailedBlock)failedBlock
 {
     self.uploadProgressBlock = progressBlock;
     self.uploadCompletedBlock = completedBlock;
     self.uploadFailedBlock = failedBlock;
     [self uploadFile:localPath uploadTo:ftpPath];
+}
+
+
+-(void)uploadData:(NSData*) localData uploadTo:(NSString *) ftpPath withFileName:(NSString *)fileName progressBlock:(FTPFileUploaderProgressBlock) progressBlock completedBlock:(FTPFilesUploaderCompletedBlock)completedBlock failedBlock:(FTPFilesUploaderFailedBlock) failedBlock
+{
+    self.uploadProgressBlock = progressBlock;
+    self.uploadCompletedBlock = completedBlock;
+    self.uploadFailedBlock = failedBlock;
+    self.delegate = nil;
+    
+    [self uploadData:localData uploadTo:ftpPath withFileName:fileName];
 }
 
 -(void)_stopUploadWithStatus:(NSString *)statusString
