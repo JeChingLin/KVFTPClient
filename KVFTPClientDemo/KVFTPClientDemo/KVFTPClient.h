@@ -59,6 +59,7 @@ enum {
 -(id)initWithHostAddress:(NSString *)address UserName:(NSString*)username Password:(NSString*)password;
 -(void) receiveDirectoryList:(NSString*) ftpPath;
 -(void) uploadFile:(NSString*) localPath uploadTo:(NSString*)ftpPath;
+-(void) uploadData:(NSData *)localData uploadTo:(NSString*)ftpPath withFileName:(NSString*)fileName;
 -(void) downloadFile:(NSString*) ftpPath downloadTo:(NSString*) localPath;
 -(void) searchFile:(NSString*) ftpPath searchFor:(NSString*) searchStr;
 -(void) createFolder:(NSString*) createFolderPath;
