@@ -2,8 +2,7 @@
 //  KVFTPClientDemoTests.m
 //  KVFTPClientDemoTests
 //
-//  Created by Gigastone iMac on 2014/9/25.
-//  Copyright (c) 2014年 Gigastone Corporation. All rights reserved.
+//  Created by Kevin Lin on 2014/9/25.
 //
 
 #import <UIKit/UIKit.h>

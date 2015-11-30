@@ -168,7 +168,7 @@
 		E622865019D3F36600A4C0EE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Gigastone Corporation";
 				TargetAttributes = {
 					E622865719D3F36600A4C0EE = {
@@ -353,6 +353,7 @@
 				INFOPLIST_FILE = KVFTPClientDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevinlin.KVFTPClientDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -365,6 +366,7 @@
 				INFOPLIST_FILE = KVFTPClientDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevinlin.KVFTPClientDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -422,6 +424,7 @@
 				E622867D19D3F36600A4C0EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E622867E19D3F36600A4C0EE /* Build configuration list for PBXNativeTarget "KVFTPClientDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +433,7 @@
 				E622868019D3F36600A4C0EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
